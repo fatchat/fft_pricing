@@ -1,0 +1,5 @@
+# format: type, name, start_val, end_val, step
+#int N 100 150 10
+#double sigma 0.05 0.20 0.05
+double K 80 120 5
+

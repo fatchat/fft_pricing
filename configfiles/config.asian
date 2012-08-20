@@ -1,0 +1,15 @@
+S 100
+K 100
+r 0.09
+sigma 0.05
+time 1
+A 22.4
+N 300
+#INNER_LOOP_BOUND 300
+small_bound 1.0e-20
+VOL_ILB_FILE volilb.inf
+offset 0
+#delta 0.44
+#af -6.7
+#al 8000
+

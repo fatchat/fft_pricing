@@ -1,0 +1,77 @@
+\documentclass[10pt]{amsart}
+\usepackage{amssymb,amsmath, amsthm, amsfonts, listings}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+%\newcommand{\vect}[1]{\vec{#1}}
+
+\newtheorem*{notation}{Notation}
+
+\begin{document}
+
+\section{Notation}
+\begin{align}
+ b &:= \text{number of components in the basket} \\
+ \vect{X} &:= (X_0,\ldots,X_{b-1}) \\
+ \vect{e} &:= (e_0,\ldots,e_{b-1}) \\
+ N &:= \text{a positive integer} \\
+ K &= \{ (k_0, \ldots, k_{b-1}) : k_j \in \{0, \ldots, N-1 \} \} \\
+ \vect{k} &\in K \\
+ \vect{I}(\alpha) &:= (\alpha, \ldots, \alpha) \qquad \text{($b$ times)} \\
+ \vect{u}(\vect{k}) &:= \Delta (\vect{k} - \vect{I}(N/2)) + i\vect{e} \\
+ \Phi &:= \text{characteristic function of spread/basket payoff} \\
+ \widehat{P} &:= \text{Fourier transform of spread/basket payoff} \\
+ F(\vect{k}) &= \Phi(\vect{u(k)}) \widehat{P}(\vect{u(k)}) \\
+ \Delta &:= \text{some real number, maybe 1/4} \\
+ \lambda &= \frac{2\pi}{N\Delta} \\
+ \vect{X}(\vect{k}) &= \vect{X} + \lambda \vect{k} \\
+ \vect{f} &= -\vect{e}\Delta - \vect{I} \left(i \frac{\Delta N}{2} \right) \\
+ \vect{\ell} &\in K \\
+ \vect{v}(\vect{\ell}) &= \vect{X} + \frac{2 \pi}{N \Delta} \vect{\ell} \\
+ V(\vect{\ell}) &= \vect{f} \cdot \vect{v(\ell)}
+\end{align}
+
+\section{Idea}
+Consider the following: whilst the function $\Phi$ is identical for both spread  and basket options,
+we have
+\begin{align}
+ \widehat{P}& (\xi)=\frac{\prod_{j=1}^b\Gamma(-i\xi_j)}{\Gamma(-i(\sum_{j=1}^b\xi_j)+2)},
+ \quad\text{ basket}\\
+ \widehat{P}& (\xi)=\frac{\Gamma(i(\xi_1+\xi_2)-1)\Gamma(-i\xi_2)}{\Gamma(i\xi_1+1)}, \quad
+ \text{ spread}\\
+  D &:= \frac{e^{-rT}\Delta^b}{(2\pi)^b}
+  \sum_{\vect{k} \in K}
+  e^{i\left( \Delta (\vect{k} + i\vect{e}) \cdot \vect{X} - \Delta N \vect{X} / 2 \right)} F(\vect{k}) \\
+  &= \frac{e^{-rT}\Delta^b}{(2\pi)^b}
+  e^{V(\vect{\ell})}
+  \sum_{\vect{k} \in K}
+  e^{i \frac{2\pi}{N} (\vect{k} \cdot \vect{\ell})}
+  e^{i\Delta (\vect{k} \cdot \vect{X})} F(\vect{k}) \\
+  &= \frac{e^{-rT}\Delta^b}{(2\pi)^b}
+  e^{V(\vect{\ell})}
+  \sum_{\vect{k} \in K}
+  e^{i \frac{2\pi}{N} (\vect{k} \cdot \vect{\ell})}
+  A_{\vect{k}}
+\end{align}
+with
+\begin{equation}
+A_{\vect{k}} := e^{i \Delta (\vect{k} \cdot \vect{X})} F(\vect{k})
+\end{equation}
+\begin{equation}
+A_{\vect{k}} \xrightarrow{FFT} B_{\vect{\ell}}
+\end{equation}
+and the call option price for the share values $\vect{X(\ell)}$ is
+\begin{equation}
+C_{\vect{\ell}} = \frac{e^{-rT} \Delta^b} {(2\pi)^b} e^{V(\vect{\ell})} B_{\vect{\ell}}
+\end{equation}
+
+\section{Implementation}
+
+\begin{itemize}
+\item The set $K$ is created by \lstinline!TupleFactory::generate_tuples_mod_N()!.
+\item We have $\#K = N^b$.
+\item All $b$-vectors are created using the LinAlgSys class.
+\item Currently the entire implementation is in \lstinline!Basket::basketpricingFFT()!
+\end {itemize}
+
+
+\end{document}
