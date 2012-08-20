@@ -1,0 +1,28 @@
+let:
+    b = # components of basket
+    N = # fft strikes
+    X = components of basket (0..b-1)
+    ee = vector of length b (epsilon in your pdf)
+    lambda = 2 PI / (N delta)
+
+for i = 0..b-1
+  V_i = CMP vector of length N, defined by
+  for j = 0..N-1
+    XX(i, j) = X[i] + lambda * j
+    V_i[j] = (-ee[i] - c_I delta (N/2)) * XX(i,j)
+
+using the A and F notation from the PDF you sent,
+
+for each tuple=(k_0, k_2, .., k_{b-1}) with 0 <= k_i <= N-1
+    A_tuple = exp(c_I * delta * innerproduct(tuple, X)) F(tuple)
+
+and we want to apply the FFT to A_tuple to get B_tuple'
+
+then for each tuple'=(l_0, l_2, .., l_{b-1})  with 0 <= l_i <= N-1
+     C_tuple'= B_tuple' * exp(sum_{j=0..b-1} V_j (l_j)) * exp(-rt)*delta^b/(2 PI)^b
+
+and C_tuple' gives the option price for the stock prices
+
+  (X_0 + lambda l_0, X_1 + lambda l_1, .. , X_{b-1} + lambda l_{b-1})
+
+is this correct?

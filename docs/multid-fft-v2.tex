@@ -1,0 +1,104 @@
+\documentclass[10pt]{amsart}
+\usepackage{amssymb,amsmath, amsthm, amsfonts}
+
+\newcommand{\rd}{\mathbb{R}^d}
+\newcommand{\rtwo}{\mathbb{R}^2}
+\newcommand{\rthree}{\mathbb{R}^3}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\zed}{\mathbb{Z}}
+\newcommand{\pd}{\frac{d(d+1)}{d^2-d+2}}
+\newcommand{\qd}{\frac{d+1}{d-1}}
+\newcommand{\pq}{L^p\to L^q}
+\newcommand{\pqd}{L^p(\mathbb{R}^d)\to L^q(\mathbb{R}^d)}
+\newcommand{\ca}{\mathcal{A}}
+\newcommand{\h}{\mathcal{H}}
+\newcommand{\m}{\mathcal{M}}
+\newcommand{\cc}{\mathcal{C}}
+\newcommand{\cs}{\mathcal{S}}
+\newcommand{\ct}{\mathcal{T}}
+\newcommand{\qq}{\mathcal{Q}}
+\newcommand{\si}{\mathfrak{S}}
+\newcommand{\tef}{\langle X\chi_E,\chi_F\rangle}
+\newcommand{\tab}{\langle X\chi_A,\chi_B\rangle}
+\newcommand{\tfe}{\langle \chi_E,X^*\chi_F\rangle}
+\newcommand{\epo}{\epsilon_1}
+\newcommand{\ept}{\epsilon_2}
+\newcommand{\eto}{\eta_1}
+\newcommand{\ett}{\eta_2}
+
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+\newtheorem{lem}{Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{defn}{Definition}
+\newtheorem{rem}{Remark}
+\newtheorem{rems}{Remarks}
+\newtheorem*{notation}{Notation}
+
+\begin{document}
+Sorry for the previous mess - I did want to ask you whether I should start the formulas from 0 rather than from 1, and you already gave me the answer. Anyway, this is the multidimensional version, where the
+dimension $b$ refers to the number of components in the basket. We therefore
+define the vectors
+\[X=(X_1,\ldots,X_b),\quad E=(\epsilon_1,\ldots,\epsilon_b),\quad K=(k_1,\ldots,k_b)\]
+We wish to implement the formula
+\begin{equation}\label{1}D\equiv \frac{e^{-rT}\Delta^b}{(2\pi)^b}\sum_{k_1,\ldots,k_b=0}^{N-1}
+e^{i\left(\Delta(K+iE)\cdot X-\Delta N X/2\right)}F(K),
+\end{equation}
+where
+\begin{multline*}F(K)= 
+\Phi\left(\Delta(k_1-N/2)+i\epo,\ldots,\Delta(k_b-N/2)+i\epsilon_b\right)\\ \times \widehat{P}
+\left(\Delta(k_1-N/2)+i\epo,\ldots,\Delta(k_b-N/2)+i\epsilon_b\right),%\]
+\end{multline*}
+$\Phi$ is the characteristic function and $\widehat{P}$ is the Fourier transform of the payoff (and this can be the payoff for spread options or basket options).
+Now by setting \[ X_j=X_{0j}+\lambda\ell_j,\quad j=1,\ldots,b\quad\ell_j=0,\ldots,N-1\]
+and \[\lambda=\frac{2\pi}{N\Delta},\quad L=(\ell_1,\ldots,\ell_b)\]
+ we rewrite (\ref{1}) as 
+\begin{equation}\label{2}\frac{e^{-rT}\Delta^b}{(2\pi)^b} e^{\sum_{j=1}^bV_j(\ell_j)}
+\sum_{k_1,\ldots,k_b=0}^{N-1}
+e^{i\frac{2\pi}{N}K\cdot L}e^{i\Delta(\sum_{j=1}^b k_jX_{0j})}F(K),
+\end{equation}
+with
+\[V_j(\ell_j)=\left(-\epsilon_j-i\Delta N/2\right)\left(X_{0j}+\frac{2\pi}{N\Delta}\ell_j\right),\quad j=1,\ldots,b.\] 
+We now have the \textbf{new observation} that for each $j$ we may write
+\[V_j(\ell_j)=-\epsilon_j\left(X_{0j}+\frac{2\pi}{N\Delta}\ell_j\right)-i\Delta N X_{0j}/2-i\pi\ell_j,\]
+so that
+\[e^{\sum_{j=1}^bV_j(\ell_j)}=\left(\prod_{j=1}^b\left(-1\right)^{\ell_j}\right)e^{-\sum_{j=1}^b \epsilon_j \left(X_{0j}+\frac{2\pi}{N\Delta}\ell_j\right)
+-i\sum_{j=1}^b\Delta N X_{0j}/2}.\]
+Note that inside the summation we have the b-dimensional discrete Fourier transform of the 
+tensor \[A_{K}\equiv e^{i\Delta(\sum_{j=1}^b k_jX_{0j})}F(K);\]
+its Fast Fourier transform will produce a tensor \[B_{L}=\{b_{\ell_1,\ldots \ell_b}\};\] 
+now the tensor
+\[C=\{c_{L}\}=\frac{e^{-rT}\Delta^b}{(2\pi)^b} e^{\sum_{j=1}^bV_j(\ell_j)}
+b_{\ell_1,\ldots,\ell_b} \]
+will give the call option price for each choice of share values
+\[X_{\ell_j}=(X_{0j}+\lambda\ell_j),\quad j=1,\ldots,b\quad\ell_j=0,\ldots,N-1.\]
+Hopefully this is clear now - by the way, as I mentioned I think our definition of Discrete Fourier
+transform is the backwards FFT in the Fastest Fourier Transform in the West.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
